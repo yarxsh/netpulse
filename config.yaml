@@ -1,0 +1,37 @@
+# NetPulse by yarxsh — пример конфигурации
+
+settings:
+  interval: 1.0          # пауза между опросами одного хоста, сек
+  timeout: 2.0           # таймаут ответа, сек
+  history: 180           # сколько последних замеров хранить (180 при interval=1 ≈ 3 минуты)
+  sparkline_width: 40    # максимальная ширина мини-графика (символов)
+  warn_ms: 100           # пинг выше — жёлтый цвет
+  crit_ms: 250           # пинг выше — красный цвет
+  fail_threshold: 2      # сколько потерь подряд до статуса Offline
+
+hosts:
+  - name: Gateway
+    address: auto        # "auto" = попытаться определить шлюз (Linux), иначе 192.168.1.1
+    method: icmp
+
+  - name: Google DNS
+    address: 8.8.8.8
+    method: icmp
+
+  - name: Cloudflare DNS
+    address: 1.1.1.1
+    method: icmp
+
+  - name: Quad9 DNS
+    address: 9.9.9.9
+    method: icmp
+
+  - name: Google HTTPS      # TCP-пинг: замер времени установки соединения
+    address: google.com
+    method: tcp
+    port: 443
+
+  - name: Local server      # пример локального сервера
+    address: 192.168.1.10
+    method: tcp
+    port: 22
